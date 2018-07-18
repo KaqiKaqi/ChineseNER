@@ -24,8 +24,8 @@ def load_sentences(path, lower, zeros):
                     sentences.append(sentence)
                 sentence = []
         else:
-            if line[0] == " ":
-                line = "$" + line[1:]
+            if line[0] == " ":  # todo: what does this branch mean??
+                line = "$" + line[1:]  # todo: $ denotes space??
                 word = line.split()
                 # word[0] = " "
             else:
@@ -68,7 +68,7 @@ def char_mapping(sentences, lower):
     """
     chars = [[x[0].lower() if lower else x[0] for x in s] for s in sentences]
     dico = create_dico(chars)
-    dico["<PAD>"] = 10000001
+    dico["<PAD>"] = 10000001  # todo: better to adopt nmt's strategy for <unkk> <pad>
     dico['<UNK>'] = 10000000
     char_to_id, id_to_char = create_mapping(dico)
     print("Found %i unique words (%i in total)" % (
@@ -102,9 +102,9 @@ def prepare_dataset(sentences, char_to_id, tag_to_id, lower=False, train=True):
         return x.lower() if lower else x
     data = []
     for s in sentences:
-        string = [w[0] for w in s]
+        string = [w[0] for w in s]  # a list of chars
         chars = [char_to_id[f(w) if f(w) in char_to_id else '<UNK>']
-                 for w in string]
+                 for w in string]  # a list of ids of chars
         segs = get_seg_features("".join(string))
         if train:
             tags = [tag_to_id[w[-1]] for w in s]

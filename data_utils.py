@@ -159,7 +159,7 @@ def load_word2vec(emb_path, id_to_word, word_dim, old_weights):
     Load word embedding from pre-trained file
     embedding size must match
     """
-    new_weights = old_weights
+    new_weights = old_weights  # todo: what's the usage of old_weights? just to provide a ... shape?
     print('Loading pretrained embeddings from {}...'.format(emb_path))
     pre_trained = {}
     emb_invalid = 0

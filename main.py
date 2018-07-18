@@ -168,10 +168,10 @@ def train():
     tf_config.gpu_options.allow_growth = True
     steps_per_epoch = train_manager.len_data
     with tf.Session(config=tf_config) as sess:
-        model = create_model(sess, Model, FLAGS.ckpt_path, load_word2vec, config, id_to_char, logger)
+        model = create_model(sess, Model, FLAGS.ckpt_path, load_word2vec, config, id_to_char, logger)  # todo: CORE
         logger.info("start training")
         loss = []
-        for i in range(100):
+        for i in range(100):  # todo: 100? epoch number?
             for batch in train_manager.iter_batch(shuffle=True):
                 step, batch_loss = model.run_step(sess, True, batch)
                 loss.append(batch_loss)
